@@ -43,7 +43,8 @@ include('../component/header.php');
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-8 col-10 text-center">
-                    <img src="<?= baseUrl() ?>assets/img/maps.png" alt="" class="img-fluid rounded mb-5" data-aos="zoom-in-up" />
+                    <video src="<?= baseUrl() ?>assets/img/12.mp4" alt="" class="img-fluid rounded mb-5" data-aos="zoom-in-up" autoplay></video>
+                    <img src="<?= baseUrl() ?>assets/img/12.mp4" alt="" class="img-fluid rounded mb-5" data-aos="zoom-in-up" />
                 </div>
 
                 <div class="col-12">
