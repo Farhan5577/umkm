@@ -26,6 +26,23 @@
             }
         }
     }
+
+    function getAndSetvalue(parent, target) {
+        let value = parent.value
+        // Konversi nilai menjadi huruf kecil
+        value = value.toLowerCase();
+
+        // Ganti karakter yang tidak diinginkan dengan tanda hubung
+        value = value.replace(/[^a-z0-9]+/g, '-');
+
+        // Hapus tanda hubung di awal dan akhir
+        value = value.replace(/^-+|-+$/g, '');
+        console.log(value)
+
+
+        document.querySelector(target).value = value
+
+    }
 </script>
 </body>
 

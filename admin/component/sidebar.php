@@ -1,20 +1,31 @@
 <?php
-
+include($_SERVER['DOCUMENT_ROOT'] . '/umkm/koneksi.php');
 function active($url)
 {
     $uri = explode('/', $_SERVER['REQUEST_URI']);
     $result = false;
-    if (count($uri) > 3) {
-        if ($uri[2] == $url) {
+
+    if ($uri[2] == 'admin') {
+
+        if ($uri[3] == $url) {
             $result = true;
-        }
-    } else {
-        if ($uri[1] == $url) {
+        } else if ($uri[3] == "" && $url == 'root') {
             $result = true;
         }
     }
+
+    if (isset($_GET['manage']) && $url == 'umkm') {
+        $result = true;
+    }
+
+
     return $result;
 }
+
+
+
+$sesiLogin  = $_SESSION['data']['username'];
+$getUmkm = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM umkm WHERE pemilik_umkm = '$sesiLogin'"));
 ?>
 
 <!-- ======= Sidebar ======= -->
@@ -23,12 +34,13 @@ function active($url)
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link <?= active('admin') ? '' : 'collapsed' ?>" href="<?= baseUrl(); ?>admin">
+            <a class="nav-link <?= active('root') ? '' : 'collapsed' ?>" href="<?= baseUrl(); ?>admin">
                 <i class="bi bi-grid"></i>
                 <span>Home</span>
             </a>
         </li>
-        <?php if ($_SESSION['data']['username'] == 'danda') : ?>
+
+        <?php if ($_SESSION['data']['username'] == 'admin') : ?>
             <li class="nav-item">
                 <a class="nav-link 
                     <?= active('profile') ? '' : 'collapsed' ?>" href="<?= baseUrl(); ?>admin/profile">
@@ -36,47 +48,38 @@ function active($url)
                     <span>Profile</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link 
+                     <?= active('umkm') ? '' : 'collapsed' ?>" href="<?= baseUrl(); ?>admin/umkm">
+                    <i class="bi bi-envelope"></i>
+                    <span>UMKM </span>
+                </a>
+            </li>
+
+
+            <!-- <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#" aria-expanded="false">
+                    <i class="bi bi-menu-button-wide"></i><span>Lapak</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="components-alerts.html">
+                            <i class="bi bi-circle"></i><span>Alerts</span>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </li> -->
 
         <?php endif; ?>
-        <?php if ($_SESSION['data']['username'] == 'putra') : ?>
-            <li class="nav-item">
-                <a class="nav-link <?= active('berita') ? '' : 'collapsed' ?>" href="<?= baseUrl(); ?>admin/berita">
-                    <i class="bi bi-card-list"></i>
-                    <span>Berita</span>
-                </a>
-            </li>
-        <?php endif; ?>
-        <?php if ($_SESSION['data']['username'] == 'danil') : ?>
-            <li class="nav-item">
 
-                <a class="nav-link 
-                    <?=
-                    $_SERVER['REQUEST_URI'] == '/admin/galeri/' ||
-                        $_SERVER['REQUEST_URI'] == '/admin/galeri/*' ? '' : 'collapsed' ?>" href="<?= baseUrl(); ?>admin/galeri/">
-                    <i class="bi bi-layout-text-window-reverse"></i>
-                    <span>Galeri</span>
-                </a>
-            </li>
-        <?php endif; ?>
-        <?php if ($_SESSION['data']['username'] == 'farhan') : ?>
+        <?php if ($getUmkm) :  ?>
             <li class="nav-item">
                 <a class="nav-link 
-                    <?=
-                    $_SERVER['REQUEST_URI'] == '/admin/kontak/' ||
-                        $_SERVER['REQUEST_URI'] == '/admin/kontak/*' ? '' : 'collapsed' ?>" href="<?= baseUrl(); ?>admin/kontak">
+                     <?= active('umkm') ? '' : 'collapsed' ?>" href="<?= baseUrl() . 'umkm?manage=' . $getUmkm['link_umkm'] ?>">
                     <i class="bi bi-envelope"></i>
-                    <span>Kontak</span>
-                </a>
-            </li>
-        <?php endif; ?>
-        <?php if ($_SESSION['data']['username'] == 'zakki') : ?>
-            <li class="nav-item">
-                <a class="nav-link 
-                    <?=
-                    $_SERVER['REQUEST_URI'] == '/admin/umkm/' ||
-                        $_SERVER['REQUEST_URI'] == '/admin/umkm/*' ? '' : 'collapsed' ?>" href="<?= baseUrl(); ?>admin/umkm">
-                    <i class="bi bi-envelope"></i>
-                    <span>umkm</span>
+                    <span>Lapak Saya </span>
                 </a>
             </li>
         <?php endif; ?>

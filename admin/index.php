@@ -1,5 +1,6 @@
 <?php
 
+
 require('./must_login.php');
 include('./component/header.php');
 include('./component/sidebar.php');

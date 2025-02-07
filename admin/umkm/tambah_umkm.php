@@ -13,9 +13,11 @@ if (count($_POST) > 0) {
     $nama_umkm = $_POST['nama_umkm'];
     $deskripsi = nl2br($_POST['deskripsi']);
     $link_umkm = $_POST['link_umkm'];
+    $pemilik_umkm = $_POST['pemilik_umkm'];
+
     move_uploaded_file($_FILES['image']['tmp_name'], 'uploads/' . $name);
-    $query = mysqli_query($connect, "INSERT INTO umkm (nama_umkm, foto_umkm, deskripsi, link_umkm) 
-                                 VALUES ('$nama_umkm', '$name', '$deskripsi', '$link_umkm')");
+    $query = mysqli_query($connect, "INSERT INTO umkm (nama_umkm, foto_umkm, deskripsi, link_umkm, pemilik_umkm) 
+ VALUES ('$nama_umkm', '$name', '$deskripsi', '$link_umkm', '$pemilik_umkm')");
 
     if ($query) {
         echo "<script>alert('Data berhasil ditambah') ; window.location.href='http://localhost/umkm/admin/umkm'</script>";
@@ -25,6 +27,14 @@ if (count($_POST) > 0) {
     }
 }
 
+
+$dataUserUmkm  = mysqli_query($connect, " SELECT * 
+    FROM user 
+    WHERE username != 'admin' 
+    AND username NOT IN (SELECT pemilik_umkm FROM umkm)");
+
+
+
 // $link_umkm = ['palestina', 'kunjungan', 'holiday', 'posko'];
 $data = mysqli_fetch_assoc(mysqli_query($connect, 'SELECT * FROM umkm'));
 
@@ -33,11 +43,11 @@ $data = mysqli_fetch_assoc(mysqli_query($connect, 'SELECT * FROM umkm'));
 
     <div class="pagetitle d-flex justify-content-between align-items-center">
         <div>
-            <h1>tambah umkm</h1>
+            <h1>Tambah UMKM</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= baseUrl(); ?>admin">Home</a></li>
-                    <li class="breadcrumb-item"><a href="<?= baseUrl(); ?>admin/umkm/">umkm</a></li>
+                    <li class="breadcrumb-item"><a href="<?= baseUrl(); ?>admin/umkm/">UMKM</a></li>
                     <li class="breadcrumb-item active">Tambah Data</li>
                 </ol>
             </nav>
@@ -67,7 +77,9 @@ $data = mysqli_fetch_assoc(mysqli_query($connect, 'SELECT * FROM umkm'));
                     <div class="mb-4">
 
                         <label for="nama_umkm" class="form-label">nama umkm</label>
-                        <input required type="text" name="nama_umkm" class="form-control" id="nama_umkm">
+                        <input required type="text" name="nama_umkm"
+                            onkeyup="getAndSetvalue(this,'.target-link-umkm')"
+                            class="form-control" id="nama_umkm">
                     </div>
                     <div class="mb-4">
 
@@ -77,7 +89,16 @@ $data = mysqli_fetch_assoc(mysqli_query($connect, 'SELECT * FROM umkm'));
                     <div class="mb-4">
 
                         <label for="link_umkm" class="form-label">link umkm</label>
-                        <input required type="text" name="link_umkm" class="form-control" id="link_umkm">
+                        <input required type="text" name="link_umkm" class="form-control target-link-umkm" id="link_umkm" readonly>
+                    </div>
+                    <div class="mb-4">
+                        <label for="pemilik_umkm" class="form-label">Pemilik UMKM</label>
+                        <select name="pemilik_umkm" id="pemilik_umkm" class="form-control">
+                            <option value="" selected disabled>Pilih Salah Satu</option>
+                            <?php while ($user = mysqli_fetch_array($dataUserUmkm)) : ?>
+                                <option value="<?= $user['username'] ?>"><?= $user['name'] ?></option>
+                            <?php endwhile; ?>
+                        </select>
                     </div>
 
                 </div>

@@ -12,6 +12,7 @@ if (count($_POST) > 0) {
 }
 
 $data = mysqli_query($connect, 'SELECT * FROM umkm');
+
 require('./../must_login.php');
 include('./../component/header.php');
 include('./../component/sidebar.php');
@@ -42,11 +43,11 @@ include('./../component/sidebar.php');
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
-                                <th scope="col">foto umkm</th>
-                                <th scope="col">nama umkm</th>
-                                <th scope="col">deskripsi</th>
-                                <th scope="col">No HP</th>
-                                <th scope="col" class="text-center">aksi</th>
+                                <th scope="col">Foto UMKM</th>
+                                <th scope="col">Nama UMKM</th>
+                                <th scope="col">Pemilik UMKM</th>
+                                <th scope="col">Link UMKM</th>
+                                <th scope="col" class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -60,19 +61,33 @@ include('./../component/sidebar.php');
                                             <img class="img-thumbnail" width="150" src="<?= baseUrl(); ?>admin/umkm/uploads/<?= $row['foto_umkm'] ?>" alt="<?= $row['foto_umkm'] ?>" />
                                         </td>
                                         <td><?= $row['nama_umkm'] ?></td>
-                                        <td><?= $row['deskripsi'] ?></td>
-                                        <td><?= $row['link_umkm'] ?></td>
+                                        <td>
+                                            <?php
+                                            $user = $row['pemilik_umkm'];
+                                            // Pastikan untuk menggunakan tanda kutip tunggal (') dan bukan tanda sama dengan ganda (==) dalam kondisi WHERE
+                                            $get = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM user WHERE username = '$user'"));
+
+
+                                            echo $get['name'];
+
+                                            ?>
+                                        </td>
+
+
+                                        <td>
+                                            <a href="<?= baseUrl()  . '/umkm?view=show&umkm=' . $row['link_umkm'] ?>"><?= $row['link_umkm'] ?></a>
+                                        </td>
                                         <td class="text-center">
 
-                                            <a href="<?= baseUrl(); ?>admin/umkm/detail.php?id=<?= $row['id'] ?>" class="btn-sm m-1 btn btn-info">
+                                            <a href="<?= baseUrl(); ?>admin/umkm/detail.php?id=<?= $row['id_umkm'] ?>" class="btn-sm m-1 btn btn-info">
                                                 Detail
                                             </a>
-                                            <a href="<?= baseUrl(); ?>admin/umkm/edit_umkm.php?id=<?= $row['id'] ?>" class="btn-sm m-1 btn btn-warning">
+                                            <a href="<?= baseUrl(); ?>admin/umkm/edit_umkm.php?id=<?= $row['id_umkm'] ?>" class="btn-sm m-1 btn btn-warning">
                                                 Edit
                                             </a>
                                             <form action="" method="post" class="d-inline-block m-1" onsubmit="return confirm('Apakah anda yakin?')">
                                                 <input type="hidden" name="delete" value="1">
-                                                <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                                <input type="hidden" name="id" value="<?= $row['id_umkm'] ?>">
                                                 <button class="btn btn-danger btn-sm" type="submit">Hapus</button>
                                             </form>
 
@@ -85,7 +100,7 @@ include('./../component/sidebar.php');
                                     <td colspan="6" class="text-center">Data masih kosong</td>
                                 </tr>
                             <?php endif; ?>
-                            <?php var_dump($row) ?>
+
                         </tbody>
                     </table>
                 </div>

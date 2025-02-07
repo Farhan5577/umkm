@@ -7,11 +7,11 @@
 
         <div class="carousel-inner" role="listbox">
           <!-- Slide 1 -->
-          <div class="carousel-item active" style="background-image: url(<?= baseUrl(); ?>assets/hero-content/10.jpg)"></div>
+          <div class="carousel-item " style="background-image: url(<?= baseUrl(); ?>assets/hero-content/11.jpg)"></div>
 
           <!-- Slide 2 -->
           <div class="carousel-item" style="background-image: url(<?= baseUrl(); ?>assets/hero-content/2.jpg)"></div>
-          <div class="carousel-item" style="background-image: url(<?= baseUrl(); ?>assets/hero-content/3.jpg)"></div>
+          <div class="carousel-item active" style="background-image: url(<?= baseUrl(); ?>assets/hero-content/3.jpg)"></div>
           <!-- <div class="carousel-item" style="background-image: url(<?= baseUrl(); ?>assets/hero-content/4.jpg)"></div>
           <div class="carousel-item" style="background-image: url(<?= baseUrl(); ?>assets/hero-content/5.jpg)"></div>
           <div class="carousel-item" style="background-image: url(<?= baseUrl(); ?>assets/hero-content/6.jpg)"></div>

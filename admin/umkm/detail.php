@@ -5,7 +5,7 @@ include('./../component/header.php');
 include('./../component/sidebar.php');
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $data = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM umkm WHERE id = '$id'"));
+    $data = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM umkm WHERE id_umkm = '$id'"));
     if (!$data) {
         return header('location:<?= baseUrl(); ?>admin/umkm');
     }

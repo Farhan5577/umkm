@@ -4,15 +4,13 @@ function active($url)
 {
     $uri = explode('/', $_SERVER['REQUEST_URI']);
     $result = false;
-    if (count($uri) > 2) {
-        if ($uri[1] == $url) {
-            $result = true;
-        }
-    } else {
-        if ($uri[1] == '' && $url == 'root') {
-            $result = true;
-        }
+
+    if ($uri[2] == $url) {
+        $result = true;
+    } else if ($uri[2] == "" && $url == 'root') {
+        $result = true;
     }
+
     return $result;
 }
 
@@ -186,7 +184,7 @@ function baseUrl()
                         <a class="<?= active('profil') ? 'active' : '' ?>" href="<?= baseUrl(); ?>profil">Profil</a>
                     </li>
                     <li>
-                        <a class="<?= active('umkm')  ? '' : '' ?>" href="<?= baseUrl(); ?>umkm">UMKM</a>
+                        <a class="<?= active('umkm')  ? 'active' : '' ?>" href="<?= baseUrl(); ?>umkm?view=main">UMKM</a>
                     </li>
                     <!-- <li>
                         <a class="<?= active('berita') ? 'active' : '' ?>" href="<?= baseUrl(); ?>berita">Berita</a>
