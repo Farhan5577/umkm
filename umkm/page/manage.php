@@ -1,104 +1,89 @@
 <?php
-// Mulai sesi jika belum dimulai
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
 include($_SERVER['DOCUMENT_ROOT'] . '/umkm/koneksi.php');
-$pemilik_umkm = $_SESSION['data']['username'];
-$query = mysqli_query($connect, 'SELECT * FROM umkm WHERE pemilik_umkm = "' . $pemilik_umkm . '"');
-$data_umkm = mysqli_fetch_assoc($query);
-$link_umkm = $data_umkm['link_umkm'];
-
-if ($_GET['manage'] != $link_umkm) {
-    echo "<script>alert('Anda tidak memiliki akses ke halaman ini'); window.location.href='http://localhost/umkm/umkm?manage=" . $link_umkm . "'</script>";
-    exit();
-}
-
-if (count($_POST) > 0) {
-    if (isset($_POST['delete']) && isset($_POST['id']) && is_numeric($_POST['id'])) {
-        $id = (int) $_POST['id']; // Pastikan ID adalah angka
-
-        // Ambil nama file gambar dari database
-        $query_gambar = mysqli_query($connect, "SELECT foto FROM umkm WHERE id = $id");
-        $data_gambar = mysqli_fetch_assoc($query_gambar);
-        $namaImage = $data_gambar['foto'];
-
-        // Hapus gambar dari folder
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/uploads/' . $namaImage)) {
-            unlink($_SERVER['DOCUMENT_ROOT'] . '/uploads/' . $namaImage);
-        }
-
-        // Hapus data dari database
-        mysqli_query($connect, "DELETE FROM umkm WHERE id = $id");
-        echo "<script>alert('Data berhasil dihapus'); window.location.href='http://localhost/umkm/admin/umkm'</script>";
-        exit();
-    }
-}
-
-$query2 = mysqli_query($connect, 'SELECT * FROM produk WHERE umkm_id = "' . $data_umkm['id_umkm'] . '"');
-
 require($_SERVER['DOCUMENT_ROOT'] . '/umkm/admin/must_login.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/umkm/admin/component/header.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/umkm/admin/component/sidebar.php');
+
+// Ambil data UMKM berdasarkan user yang login
+$pemilik_umkm = $_SESSION['data']['username'];
+$query = mysqli_query($connect, "SELECT * FROM umkm WHERE pemilik_umkm = '$pemilik_umkm'");
+$data_umkm = mysqli_fetch_assoc($query);
+
+if (!$data_umkm) {
+    echo "<script>alert('Data UMKM tidak ditemukan'); window.location.href='http://localhost/umkm/admin/dashboard'</script>";
+    exit();
+}
+
+// Proses update data UMKM
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nama_umkm = $_POST['nama_umkm'];
+    $deskripsi = $_POST['deskripsi'];
+    $link_umkm = $_POST['link_umkm'];
+
+    // Jika ada file gambar yang diupload
+    if (!empty($_FILES['foto_umkm']['name'])) {
+        $foto_umkm_name = time() . '_' . $_FILES['foto_umkm']['name'];
+        $foto_umkm_path = $_SERVER['DOCUMENT_ROOT'] . '/umkm/admin/umkm/uploads/' . $foto_umkm_name;
+
+        // Hapus foto_umkm lama jika ada
+        if (!empty($data_umkm['foto_umkm']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/umkm/admin/umkm/uploads/' . $data_umkm['foto_umkm'])) {
+            unlink($_SERVER['DOCUMENT_ROOT'] . '/umkm/admin/umkm/uploads/' . $data_umkm['foto_umkm']);
+        }
+
+        move_uploaded_file($_FILES['foto_umkm']['tmp_name'], $foto_umkm_path);
+    } else {
+        $foto_umkm_name = $data_umkm['foto_umkm'];
+    }
+
+    $update_query = "UPDATE umkm SET nama_umkm = '$nama_umkm', deskripsi = '$deskripsi', link_umkm = '$link_umkm', foto_umkm = '$foto_umkm_name' WHERE pemilik_umkm = '$pemilik_umkm'";
+    mysqli_query($connect, $update_query);
+
+    echo "<script>alert('Data UMKM berhasil diperbarui'); 
+    window.location.href='http://localhost/umkm/umkm?manage=" . $data_umkm['id_umkm'] . "'</script>";
+    exit();
+}
 ?>
 
 <main id="main" class="main">
-    <div class="pagetitle d-flex justify-content-between align-items-center">
-        <div>
-            <h1>Kelola Lapak</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= baseUrl(); ?>admin">Home</a></li>
-                    <li class="breadcrumb-item active">Lapak</li>
-                </ol>
-            </nav>
-        </div>
-        <a href="<?= baseUrl() . '/umkm?manage=' . $data_umkm['link_umkm'] . '&action=tambah-data' ?>" class="btn btn-primary mb-4">Tambah Data</a>
+    <div class="pagetitle">
+        <h1>Edit UMKM</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?= baseUrl(); ?>admin">Home</a></li>
+                <li class="breadcrumb-item active">Edit UMKM</li>
+            </ol>
+        </nav>
     </div>
-    <!-- End Page Title -->
 
-    <section class="section dashboard">
-        <div class="row">
-            <div class="col">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Foto Produk</th>
-                                <th scope="col">Nama Produk</th>
-                                <th scope="col" class="text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $no = 1;
-                            while ($row = mysqli_fetch_assoc($query2)) :
-                            ?>
-                                <tr>
-                                    <th scope="row"><?= $no++ ?></th>
-                                    <td>
-                                        <img class="img-thumbnail" width="150" src="<?= baseUrl(); ?>/admin/umkm/uploads/<?= $row['foto'] ?>" alt="<?= $row['foto'] ?>" />
-                                    </td>
-                                    <td><?= $row['nama'] ?></td>
-                                    <td class="text-center">
-                                        <a href="<?= baseUrl() . '/umkm?manage=' . $data_umkm['link_umkm'] . '&action=detail-data&id=' . $row['id'] ?>" class="btn-sm m-1 btn btn-info">Detail</a>
-                                        <a href="<?= baseUrl() . '/umkm?manage=' . $data_umkm['link_umkm'] . '&action=edit-data&id=' . $row['id'] ?>" class="btn-sm m-1 btn btn-warning">Edit</a>
-                                        <form action="" method="post" class="d-inline-block m-1" onsubmit="return confirm('Apakah Anda yakin?')">
-                                            <input type="hidden" name="delete" value="1">
-                                            <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                                            <button class="btn btn-danger btn-sm" type="submit">Hapus</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            <?php endwhile; ?>
-                        </tbody>
-                    </table>
-                </div>
+    <section class="section">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Nama UMKM</label>
+                        <input onkeyup="getAndSetvalue(this,'.target-link-umkm')" type="text" name="nama_umkm" class="form-control" value="<?= $data_umkm['nama_umkm'] ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Deskripsi</label>
+                        <textarea name="deskripsi" class="form-control" required><?= $data_umkm['deskripsi'] ?></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Link UMKM</label>
+                        <input type="text" name="link_umkm" class="form-control target-link-umkm" value="<?= $data_umkm['link_umkm'] ?>" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Foto UMKM</label>
+                        <input onchange="previewImage(this,'.target-preview')" type="file" name="foto_umkm" class="form-control">
+
+                        <?php if (!empty($data_umkm['foto_umkm'])): ?>
+                            <img style="aspect-ratio: 16 / 9;object-fit: contain;" class="target-preview  mt-2 w-50" src="<?= baseUrl(); ?>admin/umkm/uploads/<?= $data_umkm['foto_umkm'] ?>" width="100" class="mt-2">
+                        <?php endif; ?>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
             </div>
         </div>
     </section>
 </main>
 
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/umkm/admin/component/footer.php') ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/umkm/admin/component/footer.php'); ?>

@@ -4,9 +4,26 @@ include('./../../koneksi.php');
 if (count($_POST) > 0) {
 
     if (isset($_POST['delete']) && isset($_POST['id']) && is_numeric($_POST['id'])) {
+
+        // cek dulu apakah ada file gambar di dalam folder
+
         $id = (int) $_POST['id']; // Pastikan ID adalah angka
+
+        //  cek dulu apakah id umkm ini memilii prdouk apa tidak
+        $query = mysqli_query($connect, "SELECT * FROM produk WHERE umkm_id = $id");
+        if ($query->num_rows > 0) {
+            echo "<script>alert('Data tidak bisa dihapus karena masih memiliki produk'); window.location.href='http://localhost/umkm/admin/umkm'</script>";
+            exit();
+        }
+
+        // Ambil nama file gambar dari database
+        $query_gambar = mysqli_query($connect, "SELECT foto_umkm FROM umkm WHERE id_umkm = $id");
+        $data_gambar = mysqli_fetch_assoc($query_gambar);
+        $namaImage = $data_gambar['foto_umkm'];
+
+
         unlink('uploads/' . $namaImage); //mengahapus image yang ada di dalam folder
-        mysqli_query($connect, "DELETE FROM umkm WHERE id = $id"); //mengahpus data dari database
+        mysqli_query($connect, "DELETE FROM umkm WHERE id_umkm = $id"); //mengahpus data dari database
         echo "<script>alert('Data berhasil dihapus') ; window.location.href='http://localhost/umkm/admin/umkm'</script>";
     }
 }
@@ -58,7 +75,7 @@ include('./../component/sidebar.php');
                                     <tr>
                                         <th scope="row"><?= $no++ ?></th>
                                         <td>
-                                            <img class="img-thumbnail" width="150" src="<?= baseUrl(); ?>admin/umkm/uploads/<?= $row['foto_umkm'] ?>" alt="<?= $row['foto_umkm'] ?>" />
+                                            <img style="object-fit: contain; aspect-ratio : 16 / 9;" width="150" src="<?= baseUrl(); ?>admin/umkm/uploads/<?= $row['foto_umkm'] ?>" alt="<?= $row['foto_umkm'] ?>" />
                                         </td>
                                         <td><?= $row['nama_umkm'] ?></td>
                                         <td>

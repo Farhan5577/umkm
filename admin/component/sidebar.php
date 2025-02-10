@@ -14,9 +14,10 @@ function active($url)
         }
     }
 
-    if (isset($_GET['manage']) && $url == 'umkm') {
+    if ($uri[2] == $url) {
         $result = true;
     }
+
 
 
     return $result;
@@ -77,9 +78,16 @@ $getUmkm = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM umkm WHERE p
         <?php if ($getUmkm) :  ?>
             <li class="nav-item">
                 <a class="nav-link 
-                     <?= active('umkm') ? '' : 'collapsed' ?>" href="<?= baseUrl() . 'umkm?manage=' . $getUmkm['link_umkm'] ?>">
+                     <?= active('umkm') ? '' : 'collapsed' ?>" href="<?= baseUrl() . 'umkm' ?>">
                     <i class="bi bi-envelope"></i>
                     <span>Lapak Saya </span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link 
+                     <?= active('produk') ? '' : 'collapsed' ?>" href="<?= baseUrl() . 'produk' ?>">
+                    <i class="bi bi-envelope"></i>
+                    <span>Manage Produk </span>
                 </a>
             </li>
         <?php endif; ?>
