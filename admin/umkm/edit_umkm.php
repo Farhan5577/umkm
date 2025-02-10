@@ -9,7 +9,7 @@ function br2nl($input)
 }
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $data = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM umkm WHERE id = '$id'"));
+    $data = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM umkm WHERE id_umkm = '$id'"));
     if (!$data) {
         return header('location:<?= baseUrl(); ?>admin/umkm');
     }
@@ -18,9 +18,10 @@ if (isset($_GET['id'])) {
     return header('location:<?= baseUrl(); ?>admin/umkm');
 }
 
+
 if (count($_POST) > 0) {
-    $id = $_POST['id'];
-    $data = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM umkm WHERE id = '$id'"));
+    $id = $_POST['id_umkm'];
+    $data = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM umkm WHERE id_umkm = '$id'"));
     if (!$data) {
         return header('location:<?= baseUrl(); ?>admin/umkm');
     }
@@ -77,7 +78,7 @@ if (count($_POST) > 0) {
 
     <section class="section dashboard">
         <form action="" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id" value="<?= $data['id'] ?>">
+            <input type="hidden" name="id_umkm" value="<?= $data['id_umkm'] ?>">
             <div class="row">
                 <div class="col-lg-4">
 

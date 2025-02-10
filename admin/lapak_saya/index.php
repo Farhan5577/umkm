@@ -3,18 +3,18 @@ include('./../../koneksi.php');
 
 if (count($_POST) > 0) {
 
-    if (isset($_POST['delete']) && isset($_POST['id_umkm']) && is_numeric($_POST['id_umkm'])) {
-        $id = (int) $_POST['id_umkm']; // Pastikan ID adalah angka
+    if (isset($_POST['delete'])) {
+        $id = $_POST['id_umkm'];
+        $namaImage = mysqli_fetch_assoc(mysqli_query($connect, "SELECT foto_umkm FROM umkm WHERE id_umkm = $id"))['foto_umkm'];
         unlink('uploads/' . $namaImage); //mengahapus image yang ada di dalam folder
-        mysqli_query($connect, "DELETE FROM umkm WHERE id_umkm = $id"); //mengahpus data dari database
-        echo "<script>alert('Data berhasil dihapus') ; window.location.href='http://localhost/umkm/admin/umkm/index.php'</script>";
+        mysqli_query($connect, "DELETE FROM umkm WHERE pemilik_umkm = $id"); //mengahpus data dari database
+        echo "<script>alert('Data berhasil dihapus') ; window.location.href='http://localhost/umkm/admin/umkm'</script>";
     }
 }
 
-$data = mysqli_query($connect, "SELECT * FROM umkm");
-
+$data = mysqli_query($connect, 'SELECT * FROM umkm ');
 require('./../must_login.php');
-include('./../component/header.php');
+include('./../component/helader.php');
 include('./../component/sidebar.php');
 
 ?>
@@ -30,7 +30,7 @@ include('./../component/sidebar.php');
                 </ol>
             </nav>
         </div>
-        <a href="<?= baseUrl(); ?>admin/umkm/tambah_umkm.php" class="btn btn-primary mb-4">Tambah Data</a>
+        
     </div>
 
     <!-- End Page Title -->
@@ -43,11 +43,11 @@ include('./../component/sidebar.php');
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
-                                <th scope="col">Foto UMKM</th>
-                                <th scope="col">Nama UMKM</th>
-                                <th scope="col">Pemilik UMKM</th>
-                                <th scope="col">Link UMKM</th>
-                                <th scope="col" class="text-center">Aksi</th>
+                                <th scope="col">Gambar</th>
+                                <th scope="col">Judul</th>
+                                <th scope="col">deskripsi</th>
+                                <!-- <th scope="col">kategori</th> -->
+                                <th scope="col" class="text-center">aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,39 +58,24 @@ include('./../component/sidebar.php');
                                     <tr>
                                         <th scope="row"><?= $no++ ?></th>
                                         <td>
-                                            <img class="img-thumbnail" width="150" src="<?= baseUrl(); ?>admin/umkm/uploads/<?= $row['foto_umkm'] ?>" alt="<?= $row['foto_umkm'] ?>" />
+                                            <img class="img-thumbnail" width="150" src="<?= baseUrl(); ?>admin/umkm/uploads/<?= $row['foto_umkm'] ?>" alt="<?= $row['nama_umkm'] ?>" />
                                         </td>
                                         <td><?= $row['nama_umkm'] ?></td>
-                                        <td>
-                                            <?php
-                                            $user = $row['pemilik_umkm'];
-                                            // Pastikan untuk menggunakan tanda kutip tunggal (') dan bukan tanda sama dengan ganda (==) dalam kondisi WHERE
-                                            $get = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM user WHERE username = '$user'"));
-
-
-                                            echo $get['name'];
-
-                                            ?>
-                                        </td>
-
-
-                                        <td>
-                                            <a href="<?= baseUrl()  . '/umkm?view=show&umkm=' . $row['link_umkm'] ?>"><?= $row['link_umkm'] ?></a>
-                                        </td>
+                                        <td><?= $row['deskripsi'] ?></td>
+                                        <!-- <td><?= $row['kategori'] ?></td> -->
                                         <td class="text-center">
 
-                                            <a href="<?= baseUrl(); ?>admin/umkm/detail.php?id=<?= $row['id_umkm'] ?>" class="btn-sm m-1 btn btn-info">
+                                            <a href="<?= baseUrl(); ?>admin/lapak_saya/detail.php?id=<?= $row['id_umkm'] ?>" class="btn-sm m-1 btn btn-info">
                                                 Detail
                                             </a>
-                                            <a href="<?= baseUrl(); ?>admin/umkm/edit_umkm.php?id=<?= $row['id_umkm'] ?>" class="btn-sm m-1 btn btn-warning">
+                                            <a href="<?= baseUrl(); ?>admin/lapak_saya/edit_umkm.php?id=<?= $row['id_umkm'] ?>" class="btn-sm m-1 btn btn-warning">
                                                 Edit
                                             </a>
-                                            <form action="" method="post" class="d-inline-block m-1" onsubmit="return confirm('Apakah anda yakin?')">
-                                                <input type="hidden" name="delete" value="1">
+                                            <form action="" method="post" onclick="return confirm('Apakah anda yakin?') ? this.submit() : false" class="d-inline-block m-1">
+                                                <input type="hidden" name="delete">
                                                 <input type="hidden" name="id_umkm" value="<?= $row['id_umkm'] ?>">
-                                                <button class="btn btn-danger btn-sm" type="submit">Hapus</button>
+                                                <button class="btn btn-danger btn-sm" type="button">Hapus</button>
                                             </form>
-
 
                                         </td>
                                     </tr>

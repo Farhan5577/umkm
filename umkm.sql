@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 6.0.0-dev
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Feb 07, 2025 at 04:32 PM
--- Server version: 8.0.30
--- PHP Version: 8.2.27
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 10 Feb 2025 pada 05.30
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,20 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `berita`
+-- Struktur dari tabel `berita`
 --
 
 CREATE TABLE `berita` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `judul` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `isi` text NOT NULL,
   `image` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `berita`
+-- Dumping data untuk tabel `berita`
 --
 
 INSERT INTO `berita` (`id`, `judul`, `slug`, `isi`, `image`, `created_at`) VALUES
@@ -47,19 +47,19 @@ INSERT INTO `berita` (`id`, `judul`, `slug`, `isi`, `image`, `created_at`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `galeri`
+-- Struktur dari tabel `galeri`
 --
 
 CREATE TABLE `galeri` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `gambar` varchar(255) NOT NULL,
   `judul` varchar(255) NOT NULL,
   `deskripsi` text NOT NULL,
   `kategori` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `galeri`
+-- Dumping data untuk tabel `galeri`
 --
 
 INSERT INTO `galeri` (`id`, `gambar`, `judul`, `deskripsi`, `kategori`) VALUES
@@ -68,33 +68,33 @@ INSERT INTO `galeri` (`id`, `gambar`, `judul`, `deskripsi`, `kategori`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kontak`
+-- Struktur dari tabel `kontak`
 --
 
 CREATE TABLE `kontak` (
-  `id` int NOT NULL,
-  `nama_lokasi` varchar(20) NOT NULL,
+  `id` int(11) NOT NULL,
+  `nama_lokasi` varchar(50) NOT NULL,
   `lokasi` varchar(100) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `telp` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `telp` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produk`
+-- Struktur dari tabel `produk`
 --
 
 CREATE TABLE `produk` (
-  `id` int NOT NULL,
-  `umkm_id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `umkm_id` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `foto` varchar(255) NOT NULL,
-  `deskripsi` longtext
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `deskripsi` longtext DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `produk`
+-- Dumping data untuk tabel `produk`
 --
 
 INSERT INTO `produk` (`id`, `umkm_id`, `nama`, `foto`, `deskripsi`) VALUES
@@ -107,11 +107,11 @@ INSERT INTO `produk` (`id`, `umkm_id`, `nama`, `foto`, `deskripsi`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `profil`
+-- Struktur dari tabel `profil`
 --
 
 CREATE TABLE `profil` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `judul_sambutan` varchar(255) NOT NULL,
   `isi_sambutan` longtext NOT NULL,
   `foto_sambutan` varchar(255) NOT NULL,
@@ -119,10 +119,10 @@ CREATE TABLE `profil` (
   `visi` longtext NOT NULL,
   `misi` longtext NOT NULL,
   `program_kerja` longtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `profil`
+-- Dumping data untuk tabel `profil`
 --
 
 INSERT INTO `profil` (`id`, `judul_sambutan`, `isi_sambutan`, `foto_sambutan`, `isi_sejarah`, `visi`, `misi`, `program_kerja`) VALUES
@@ -131,42 +131,40 @@ INSERT INTO `profil` (`id`, `judul_sambutan`, `isi_sambutan`, `foto_sambutan`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `umkm`
+-- Struktur dari tabel `umkm`
 --
 
 CREATE TABLE `umkm` (
-  `id_umkm` int NOT NULL,
+  `id_umkm` int(11) NOT NULL,
   `nama_umkm` varchar(255) NOT NULL,
   `foto_umkm` varchar(255) NOT NULL,
   `deskripsi` text NOT NULL,
   `link_umkm` varchar(255) NOT NULL,
   `pemilik_umkm` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `umkm`
+-- Dumping data untuk tabel `umkm`
 --
 
 INSERT INTO `umkm` (`id_umkm`, `nama_umkm`, `foto_umkm`, `deskripsi`, `link_umkm`, `pemilik_umkm`) VALUES
-(5, 'Umkm Pertama', '1738892302.png', 'sadsad', 'umkm-pertama', 'putra'),
-(6, 'UMKM Kedua', '1738892998.jpeg', 'adsadsd', 'umkm-kedua', 'danil'),
-(7, 'UMKM Ketiga', '1738943603.png', 'dsadsdsad', 'umkm-ketiga', 'farhan');
+(1, 'gula merah', '1739025641.jpeg', 'gula merah yang warna coklat', 'gula-merah', 'farhan');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`id`, `name`, `username`, `password`) VALUES
@@ -182,93 +180,45 @@ INSERT INTO `user` (`id`, `name`, `username`, `password`) VALUES
 --
 
 --
--- Indexes for table `berita`
+-- Indeks untuk tabel `berita`
 --
 ALTER TABLE `berita`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `galeri`
+-- Indeks untuk tabel `galeri`
 --
 ALTER TABLE `galeri`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kontak`
+-- Indeks untuk tabel `kontak`
 --
 ALTER TABLE `kontak`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `produk`
---
-ALTER TABLE `produk`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `profil`
---
-ALTER TABLE `profil`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `umkm`
+-- Indeks untuk tabel `umkm`
 --
 ALTER TABLE `umkm`
   ADD PRIMARY KEY (`id_umkm`);
 
 --
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
-
---
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `berita`
---
-ALTER TABLE `berita`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `galeri`
---
-ALTER TABLE `galeri`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `kontak`
+-- AUTO_INCREMENT untuk tabel `kontak`
 --
 ALTER TABLE `kontak`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `produk`
---
-ALTER TABLE `produk`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `profil`
---
-ALTER TABLE `profil`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `umkm`
+-- AUTO_INCREMENT untuk tabel `umkm`
 --
 ALTER TABLE `umkm`
-  MODIFY `id_umkm` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_umkm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
