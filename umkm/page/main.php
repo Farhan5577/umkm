@@ -18,7 +18,7 @@
             <h2>Daftar UMKM</h2>
         </center>
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
 
 
                 <?php
@@ -26,20 +26,20 @@
                 ?>
                     <div class="col-lg-4 col-md-6">
 
-                        <a href="<?= baseUrl(); ?>umkm?view=show&umkm=<?= $row['link_umkm'] ?>" class="btn-sm m-1 btn btn-info">
+                        <a href="<?= baseUrl(); ?>umkm?view=show&umkm=<?= $row['link_umkm'] ?>" class="btn-sm m-1 btn ">
                             <div class="card mb-3" style="max-width: 540px;">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <img src="<?= baseUrl(); ?>admin/umkm/uploads/<?= $row['foto_umkm'] ?>" class="img-fluid rounded-start" alt="...">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h2 class="card-title"><?= $row['nama_umkm'] ?></h2>
-                                            <p class="card-text"><?= $row['deskripsi'] ?></p>
-                                            <p class="card-text"><small class="text-body-secondary"></small></p>
-                                        </div>
-                                    </div>
+
+
+                                <img src="<?= baseUrl(); ?>admin/umkm/uploads/<?= $row['foto_umkm'] ?>" class="img-fluid rounded-start" alt="...">
+
+
+                                <div class="card-body">
+                                    <h2 class="card-title"><?= $row['nama_umkm'] ?></h2>
+                                    <p class="card-text"><?= $row['deskripsi'] ?></p>
+                                    <p class="card-text"><small class="text-body-secondary"></small></p>
                                 </div>
+
+
                             </div>
                         </a>
                     </div>
