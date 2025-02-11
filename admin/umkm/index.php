@@ -99,9 +99,9 @@ include('./../component/sidebar.php');
                                             <a href="<?= baseUrl(); ?>admin/umkm/detail.php?id=<?= $row['id_umkm'] ?>" class="btn-sm m-1 btn btn-info">
                                                 Detail
                                             </a>
-                                            <a href="<?= baseUrl(); ?>admin/umkm/edit_umkm.php?id=<?= $row['id_umkm'] ?>" class="btn-sm m-1 btn btn-warning">
+                                            <!-- <a href="<?= baseUrl(); ?>admin/umkm/edit_umkm.php?id=<?= $row['id_umkm'] ?>" class="btn-sm m-1 btn btn-warning">
                                                 Edit
-                                            </a>
+                                            </a> -->
                                             <form action="" method="post" class="d-inline-block m-1" onsubmit="return confirm('Apakah anda yakin?')">
                                                 <input type="hidden" name="delete" value="1">
                                                 <input type="hidden" name="id" value="<?= $row['id_umkm'] ?>">

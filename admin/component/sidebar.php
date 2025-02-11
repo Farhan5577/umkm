@@ -78,7 +78,7 @@ $getUmkm = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM umkm WHERE p
         <?php if ($getUmkm) :  ?>
             <li class="nav-item">
                 <a class="nav-link 
-                     <?= active('umkm') ? '' : 'collapsed' ?>" href="<?= baseUrl() . 'umkm' ?>">
+                     <?= active('umkm') ? '' : 'collapsed' ?>" href="<?= baseUrl() . 'umkm?manage=true' ?>">
                     <i class="bi bi-envelope"></i>
                     <span>Lapak Saya </span>
                 </a>
