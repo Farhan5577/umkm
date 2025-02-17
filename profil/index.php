@@ -82,7 +82,7 @@ include('../component/header.php');
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path fill="#1d284b" fill-opacity="1" d="M0,32L60,53.3C120,75,240,117,360,138.7C480,160,600,160,720,160C840,160,960,160,1080,144C1200,128,1320,96,1380,80L1440,64L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
     </svg>
-    <section>
+    <!-- <section>
         <div class="container">
             <div class="row align-items-center">
                 <div class="section-title" data-aos="fade-up">
@@ -94,7 +94,7 @@ include('../component/header.php');
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- End Members Section -->
 </main>
 

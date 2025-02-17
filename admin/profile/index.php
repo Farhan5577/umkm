@@ -40,7 +40,7 @@ include('./../component/sidebar.php');
             </div>
             <div class="col-12">
                 <div class="mb-3">
-                    <label for="judul" class="form-label fw-bold fs-3">Judul sambutan Ketua MDMC </label>
+                    <label for="judul" class="form-label fw-bold fs-3">Judul sambutan Kepala desa </label>
                     <div>
                         <?= $data['judul_sambutan'] ?>
                     </div>
@@ -48,7 +48,7 @@ include('./../component/sidebar.php');
             </div>
             <div class="col-12">
                 <div class="mb-3">
-                    <label for="judul" class="form-label fw-bold fs-3">isi sambutan ketua MDMC </label>
+                    <label for="judul" class="form-label fw-bold fs-3">isi sambutan Kepala desa </label>
                     <div>
                         <?= $data['isi_sambutan'] ?>
                     </div>
@@ -56,7 +56,7 @@ include('./../component/sidebar.php');
             </div>
             <div class="col-12">
                 <div class="mb-3">
-                    <div class="fw-bold fs-3">isi sejarah MDMC </div>
+                    <div class="fw-bold fs-3">isi sejarah Margourip </div>
                     <div>
                         <?= $data['isi_sejarah'] ?>
                     </div>
@@ -64,7 +64,7 @@ include('./../component/sidebar.php');
             </div>
             <div class="col-12">
                 <div class="mb-3">
-                    <div class="fw-bold fs-3">visi MDMC </div>
+                    <div class="fw-bold fs-3">visi Margourip </div>
                     <div>
                         <?= $data['visi'] ?>
                     </div>
@@ -72,7 +72,7 @@ include('./../component/sidebar.php');
             </div>
             <div class="col-12">
                 <div class="mb-3">
-                    <div class="fw-bold fs-3">misi MDMC </div>
+                    <div class="fw-bold fs-3">misi Margourip </div>
                     <div>
                         <?= $data['misi'] ?>
                     </div>

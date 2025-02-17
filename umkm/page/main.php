@@ -24,25 +24,23 @@
                 <?php
                 while ($row = mysqli_fetch_assoc($data)) :
                 ?>
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-lg-4 col-md-6 d-flex">
+                        <a href="<?= baseUrl(); ?>umkm?view=show&umkm=<?= $row['link_umkm'] ?>" class="btn-sm m-1 btn w-100">
+                            <div class="card h-100">
+                                 <img src="<?= baseUrl(); ?>admin/umkm/uploads/<?= $row['foto_umkm'] ?>"
+                                    class="img-fluid rounded-start"
+                                    style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; display:flex;"
+                                    alt="Gambar UMKM">
 
-                        <a href="<?= baseUrl(); ?>umkm?view=show&umkm=<?= $row['link_umkm'] ?>" class="btn-sm m-1 btn ">
-                            <div class="card mb-3" style="max-width: 540px;">
-
-
-                                <img src="<?= baseUrl(); ?>admin/umkm/uploads/<?= $row['foto_umkm'] ?>" class="img-fluid rounded-start" alt="...">
-
-
-                                <div class="card-body">
+                                <div class="card-body d-flex flex-column">
                                     <h2 class="card-title"><?= $row['nama_umkm'] ?></h2>
-                                    <p class="card-text"><?= $row['deskripsi'] ?></p>
+                                    <p class="card-text flex-grow-1"><?= $row['deskripsi'] ?></p>
                                     <p class="card-text"><small class="text-body-secondary"></small></p>
                                 </div>
-
-
                             </div>
                         </a>
                     </div>
+
                 <?php endwhile; ?>
             </div>
         </div>
@@ -88,9 +86,13 @@
                         <img src="<?= baseUrl(); ?>admin/umkm/uploads/<?= $umkm_detail['foto_umkm'] ?>" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-lg-8 col-md-6">
-                        <div class="card-body">
+                        <div class="card-body; ">
                             <h2 class="card-title"><?= $umkm_detail['nama_umkm'] ?></h2>
                             <p class="card-text"><?= $umkm_detail['deskripsi'] ?></p>
+                            <h4><p class="card-text">Alamat</p></h4>
+                            <p class="card-text"><?= $umkm_detail['alamat'] ?></p>
+                            <h4><p class="card-text">No Telepone</p></h4>
+                            <p class="card-text"><?= $umkm_detail['no_tlpn'] ?></p>
                             <p class="card-text">Total Produk<small class="text-body-secondary">
                                     <?php
                                     $total_produk_query = "SELECT COUNT(*) as total_produk FROM produk WHERE umkm_id = '{$umkm_detail['id_umkm']}'";

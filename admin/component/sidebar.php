@@ -56,7 +56,13 @@ $getUmkm = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM umkm WHERE p
                     <span>UMKM </span>
                 </a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link 
+                     <?= active('user') ? '' : 'collapsed' ?>" href="<?= baseUrl(); ?>admin/user">
+                    <i class="bi bi-envelope"></i>
+                    <span>user </span>
+                </a>
+            </li>
 
             <!-- <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#" aria-expanded="false">

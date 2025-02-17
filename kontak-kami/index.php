@@ -24,12 +24,12 @@ include('./../component/header.php');
         <div class="container"> 
           <div class="row justify-content-center" >
 
-      
+          <h1 class="text-center my-4" >Lokasi kami</h1>
             <div>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.4287549797474!2d112.1629873!3d-7.9594821!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e78f3edaeb953c5%3A0x16de621caa8cba61!2sKantor%20Balai%20Desa%20Margourip!5e0!3m2!1sen!2sid!4v1706900000000" style="border: 0; width: 100%; height: 270px" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <!-- dari sini -->
-            <h1 class="text-center my-4" >Cabang Kami</h1>
+
           <?php if ($data->num_rows > 0) : ?>
             <div class="accordion accordion-flush mb-4" id="accordionFlushExample" >
             <?php while ($row = mysqli_fetch_assoc($data)) : ?>
@@ -73,12 +73,12 @@ include('./../component/header.php');
               </div>
           <?php else : ?>
                 <div class="text-center">
-                    Data masih kosong
+                    
                 </div>
           <?php endif; ?>
               <div class="col-lg-7 col-md-8 mt-5 mt-lg-0 justify-content-center align-items-center d-flex flex-column">
                   <div class="display-5 text-center fw-bold mb-5">
-                    Hubungi Kami secara langsung !!!
+                    Ingin Mendaftarkan UMKM anda? Hubungi Kami secara langsung !!!
                   </div>
                   <div class="row text-center">
                     <div class="col-6">
@@ -86,7 +86,7 @@ include('./../component/header.php');
                         <i class="bi bi-envelope"></i><br />Kirim Surel</a>
                     </div>
                     <div class="col-6">
-                      <a style="white-space: nowrap" href="https://wa.me/628989139960" class="btn btn-success btn-large">
+                      <a style="white-space: nowrap" href="https://wa.me/6281555300681" class="btn btn-success btn-large">
                         <i class="bi bi-telephone"></i><br />Klik Disini</a>
                     </div>
                   </div>

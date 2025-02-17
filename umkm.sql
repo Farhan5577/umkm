@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 6.0.0-dev
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Feb 07, 2025 at 04:32 PM
--- Server version: 8.0.30
--- PHP Version: 8.2.27
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 15 Feb 2025 pada 13.10
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,20 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `berita`
+-- Struktur dari tabel `berita`
 --
 
 CREATE TABLE `berita` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `judul` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `isi` text NOT NULL,
   `image` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `berita`
+-- Dumping data untuk tabel `berita`
 --
 
 INSERT INTO `berita` (`id`, `judul`, `slug`, `isi`, `image`, `created_at`) VALUES
@@ -47,19 +47,19 @@ INSERT INTO `berita` (`id`, `judul`, `slug`, `isi`, `image`, `created_at`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `galeri`
+-- Struktur dari tabel `galeri`
 --
 
 CREATE TABLE `galeri` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `gambar` varchar(255) NOT NULL,
   `judul` varchar(255) NOT NULL,
   `deskripsi` text NOT NULL,
   `kategori` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `galeri`
+-- Dumping data untuk tabel `galeri`
 --
 
 INSERT INTO `galeri` (`id`, `gambar`, `judul`, `deskripsi`, `kategori`) VALUES
@@ -68,50 +68,39 @@ INSERT INTO `galeri` (`id`, `gambar`, `judul`, `deskripsi`, `kategori`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kontak`
+-- Struktur dari tabel `kontak`
 --
 
 CREATE TABLE `kontak` (
-  `id` int NOT NULL,
-  `nama_lokasi` varchar(20) NOT NULL,
+  `id` int(11) NOT NULL,
+  `nama_lokasi` varchar(50) NOT NULL,
   `lokasi` varchar(100) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `telp` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `telp` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produk`
+-- Struktur dari tabel `produk`
 --
 
 CREATE TABLE `produk` (
-  `id` int NOT NULL,
-  `umkm_id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `umkm_id` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `foto` varchar(255) NOT NULL,
-  `deskripsi` longtext
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `produk`
---
-
-INSERT INTO `produk` (`id`, `umkm_id`, `nama`, `foto`, `deskripsi`) VALUES
-(6, 5, 'Siomay bandung 23232', '1738943518.png', 'asdsad'),
-(7, 5, 'Siomay Bandung ', '1738941685.png', 'sadsadsadsad'),
-(8, 5, 'dasdsa', '1738943038.jpeg', 'dsadsad'),
-(9, 7, 'Siomay bandung', '1738943636.png', 'sadsads'),
-(10, 7, 'ssd', '1738943657.png', 'sadsad');
+  `deskripsi` longtext DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `profil`
+-- Struktur dari tabel `profil`
 --
 
 CREATE TABLE `profil` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `judul_sambutan` varchar(255) NOT NULL,
   `isi_sambutan` longtext NOT NULL,
   `foto_sambutan` varchar(255) NOT NULL,
@@ -119,156 +108,115 @@ CREATE TABLE `profil` (
   `visi` longtext NOT NULL,
   `misi` longtext NOT NULL,
   `program_kerja` longtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `profil`
+-- Dumping data untuk tabel `profil`
 --
 
 INSERT INTO `profil` (`id`, `judul_sambutan`, `isi_sambutan`, `foto_sambutan`, `isi_sejarah`, `visi`, `misi`, `program_kerja`) VALUES
-(1, 'Memberikan sambutan oleh ketua lembaga  ', 'Lembaga Penanggulangan Bencana Pimpinan Pusat Muhammadiyah mengalami perubahan nama dengan tanpa mengurangi makna, visi dan misi lembaga yakni menjadi Lembaga Resiliensi Bencana Pimpinan Pusat Muhammadiyah mulai dari tahun 2022 serta memiliki sebutan dalam bahasa inggris \"Muhammadiyah Disaster Management Center\" atau disingkat MDMC. Lembaga ini dirintis tahun 2007 dengan nama \"Pusat Penanggulangan Bencana\" yang kemudian dikukuhkan menjadi lembaga yang bertugas mengkoordinasikan sumberdaya Muhammadiyah dalam kegiatan penanggulangan bencana oleh Pimpinan Pusat Muhammadiyah pasca Muktamar tahun 2010.<br />\r\n<br />\r\nMDMC bergerak dalam kegiatan penanggulangan bencana sesuai dengan definisi kegiatan penanggulangan bencana baik pada kegiatan Mitigasi dan Kesiapsiagaan, Tanggap Darurat dan juga Rehabilitasi. MDMC mengadopsi kode etik kerelawanan kemanusiaan dan piagam kemanusiaan yang berlaku secara internasional, mengembangkan misi pengurangan risiko bencana selaras dengan Hygo Framework for Action dan mengembangkan basis kesiapsiagaan di tingkat komunitas, sekolah dan rumah sakit sebagai basis gerakan Muhammadiyah sejak 100 tahun yang lalu. <br />\r\n<br />\r\nMDMC bergerak dalam kegiatan kebencanaan di seluruh wilayah Negara Republik Indonesia, sesuai wilayah badan hukum Persyarikatan Muhammadiyah yang dalam operasionalnya mengembangkan MDMC di tingkat Pimpinan Wilayah Muhammadiyah (Propinsi) dan MDMC di tingkat Pimpinan Daerah Muhammadiyah (Kabupaten).  ', '1738852043.jpeg', 'Muhammadiyah Disaster Management Center (MDMC) adalah sebutan dalam bahasa inggris dari Lembaga Penanggulangan Bencana Muhammadiyah yang merupakan salah satu unsur pembantu pimpinan Persyarikatan Muhammadiyah pada tingkat Pusat (Nasional), Wilayah (Provinsi) dan Daerah (Kabupaten) se Indonesia. Saat ini Lembaga Penanggulangan Bencana beralih nama dengan tanpa merubah visi dan misinya menjadi Lembaga Resilliensi Bencana sebagaiman Surat Keputusan Pimpinan Pusat Muhammadiyah nomor 153/KEP/I.0/D/2023 tentang Pengangkatan Pimpinan dan Anggota Lembaga Resiliensi Bencana Pimpinan Pusat Muhammadiyah Periode 2023-2028<br />\r\n<br />\r\nLRB bertugas mengkoordinasikan sumberdaya Muhammadiyah dalam upaya tanggap darurat - pemulihan, mitigasi-kesiapsiagaan, dan penguatan sistem jaringan, organisasi dan pengelolaan sumberdaya penanggulangan bencana.<br />\r\n<br />\r\nBekerja pada misi internasional dalam bendera Muhammadiyah Aid, menjadi bagian dari Muhammadiyah Covid-19 Command Center, anggota Humanitarian Forum Indonesia (HFI), anggota Platform Nasional PRB, dan anggota Konsorsium Pendidikan Bencana (KPB) ', 'Berkembangnya fungsi dan sistem penanggulangan bencana yang unggul dan berbasis Penolong Kesengsaraan Oemoem (PKO) sehingga mampu meningkatkan kualitas dan kemajuan hidup masyarakat yang sadar dan tangguh terhadap bencana serta mampu memulihkan korban bencana secara cepat dan bermartabat ', '    1. Meningkatkan dan Mengoptimalkan Sistem Penanggulangan Bencana di Muhammadiyah<br />\r\n    2. Mengembangkan Kesadaran Bencana di Lingkungan Muhammadiyah<br />\r\n    3. Memperkuat Jaringan dan Partisipasi Masyarakat dalam Penanggulangan Bencana.', 'Penanggulangan bencana adalah bagian dari nafas pergerakan Muhammadiyah sejak pendiriannya di tahun 1912 yang lalu. Komitmen ini telah diwujudkan baik dalam norma organisasi maupun dalam wujud nyata gerakan dengan berbagai karya inovatifnya sebagai pengusung gerakan Islam Berkemajuan. Berdirinya Majelis Penolong Kesengsaraan Oemoem (PKO) sebagai perangkat pelaksana misi persyarikatan di periode awal berdirinya organisasi, kemudian melahirkan berbagai varian aktualisasi ajaran Islam yang terus mengusahakan amalan terbaiknya dalam pemecahkan masalah kemanusiaan. Salah satu variannya berupa amal nyata dalam bidang penanggulangan bencana yang mewujud dalam bentuk Lembaga Penanggulangan Bencana Muhammadiyah atau disebut juga Muhammadiyah Disaster Management Center dengan singkatan MDMC.<br />\r\n<br />\r\nMDMC tidak saja mampu mengorganisir sumberdaya Muhammadiyah di tingkat lokal dan Nasional, namun juga telah berkiprah dalam misi kemanusiaan Internasional. Lembaga ini ikut menentukan arah dan kebijakan masalah kemanusiaan di berbagai forum Internasional, ikut menentukan arah dan kebijakan pengurangan risiko bencana di tingkat regional dan Internasional, serta membangun hubungan baik dengan pemerintah negara lain, lembaga regional dan juga lembaga Internasional .<br />\r\n<br />\r\nKerja besar jaringan Muhammadiyah yang tersebar di 34 Provinsi -di dukung perangkat pimpinan di 429 Kabupaten/Kota, dan disertai perangkat pimpinan di 3.366 Kabupaten/Kota- pada periode 2015 - 2020 ini bertujuan pencapaian kondisi obyektif secara nasional, berupa :<br />\r\n<br />\r\nTerciptanya transformasi (perubahan cepat ke arah kemajuan) sistem organisasi dan jaringan yang maju, profesional, dan modern.<br />\r\n<br />\r\nBerkembangnya sistem gerakan dan amal usaha yang berkualitas utama dan mandiri bagi terciptanya kondisi dan faktor-faktor pendukung terwujudnya masyarakat Islam yang sebenar-benarnya.<br />\r\n<br />\r\nBerkembangnya peran strategis Muhammadiyah dalam kehidupan umat, bangsa, dan dinamika global.<br />\r\n<br />\r\nProgram Muhammadiyah hasil Muktamar ke-47 merupakan program Nasional/Pusat (keseluruhan) yang menjadi acuan umum bagi perumusan dan pelaksanaan program di tingkat Wilayah, Daerah, Cabang, Ranting, Organisasi Otonom, dan Amal Usaha Persyarikatan sesuai dengan kewenangan, kepentingan, dan kondisi masing-masing. ');
+(1, 'Memberikan sambutan oleh Kepala Desa Margourip', 'Assalamu’alaikum Warahmatullahi Wabarakatuh,Selamat datang di Website Resmi Desa Margourip. Dengan penuh rasa syukur, kami hadirkan website ini sebagai bentuk keterbukaan informasi dan pelayanan bagi seluruh masyarakat Desa Margourip serta para pengunjung yang ingin mengenal lebih jauh tentang desa kami.Desa Margourip memiliki potensi alam, budaya, dan kearifan lokal yang kaya. Melalui website ini, kami berupaya untuk menyajikan informasi terkait pemerintahan desa, kegiatan masyarakat, potensi wisata, serta berbagai layanan yang dapat diakses secara digital guna meningkatkan transparansi dan kemudahan dalam pelayanan publik.Kami mengajak seluruh masyarakat untuk berpartisipasi aktif dalam pembangunan desa, baik dengan memberikan saran, kritik, maupun kontribusi nyata demi kemajuan Desa Margourip yang lebih baik. Semoga dengan adanya website ini, komunikasi antara pemerintah desa dan masyarakat semakin erat, serta dapat menjadi sarana untuk memajukan desa kita tercinta.Terima kasih atas kunjungan Anda. Mari bersama kita bangun Desa Margourip yang lebih maju, sejahtera, dan berdaya saing!Wassalamu’alaikum Warahmatullahi Wabarakatuh.', '1739289663.jpeg', 'Desa Margourip terletak di Kecamatan Ngancar, Kabupaten Kediri, Jawa Timur. Dahulu, wilayah ini merupakan hutan belantara dengan jumlah penduduk yang masih sedikit. Seiring berjalannya waktu, banyak pendatang menetap di desa ini, membentuk komunitas yang beragam dengan budaya dan latar belakang yang unik. Margourip berada di lereng Gunung Kelud, menjadikannya wilayah yang subur dan memiliki pemandangan alam yang indah. Di bagian selatan desa mengalir sungai lahar yang berperan penting dalam ekosistem sekitar, terutama saat terjadi aktivitas vulkanik Gunung Kelud. Mayoritas penduduk Desa Margourip beragama Islam, dengan keberagaman keyakinan lain yang tetap hidup berdampingan secara harmonis. Tradisi gotong royong masih dijunjung tinggi, mencerminkan kebersamaan yang kuat di antara warga desa. Berbagai kegiatan keagamaan, sosial, dan kebudayaan rutin diadakan untuk mempererat tali persaudaraan antarwarga. Sebagai desa yang berada di kawasan pegunungan, Margourip memiliki potensi besar dalam bidang pertanian dan perkebunan. Selain itu, pariwisata juga menjadi sektor yang terus berkembang, mengingat lokasinya yang strategis dekat dengan destinasi wisata alam seperti Gunung Kelud. Desa Margourip memiliki fasilitas pendidikan yang memadai, termasuk beberapa sekolah dasar yang mendukung perkembangan pendidikan anak-anak desa. Infrastruktur desa terus ditingkatkan guna menunjang kesejahteraan masyarakat, mulai dari akses jalan, sarana kesehatan, hingga teknologi informasi.', '\"Menjadikan Desa Margourip sebagai desa yang maju, mandiri, dan berdaya saing dengan tetap menjaga kearifan lokal serta kesejahteraan masyarakat.\"', '1. Meningkatkan kesejahteraan masyarakat melalui pengembangan ekonomi berbasis potensi lokal.<br />\r\n2. Mendorong pendidikan dan peningkatan kualitas sumber daya manusia.<br />\r\n3. Menjaga kelestarian lingkungan serta pengelolaan sumber daya alam yang berkelanjutan.<br />\r\n4. Mengembangkan sektor pariwisata dan kebudayaan desa.<br />\r\n5. Memperkuat nilai-nilai gotong royong dan kebersamaan dalam kehidupan bermasyarakat.', 'Dalam bidang pembangunan dan infrastruktur, Desa Margourip berkomitmen untuk meningkatkan kualitas jalan desa guna mendukung mobilitas warga serta membangun fasilitas umum seperti balai desa, pasar desa, dan tempat ibadah. Selain itu, sistem drainase akan dikembangkan untuk mencegah banjir saat musim hujan, serta penyediaan akses internet desa guna mendukung kemajuan digitalisasi.<br />\r\n<br />\r\nDi bidang ekonomi dan UMKM, desa berupaya mengembangkan usaha mikro, kecil, dan menengah berbasis potensi lokal melalui pelatihan keterampilan serta pemberdayaan petani dan peternak dengan bantuan alat serta teknologi pertanian. Selain itu, promosi produk lokal desa akan diperkuat melalui platform digital dan event pameran guna meningkatkan daya saing.<br />\r\n<br />\r\nDalam bidang sosial dan kemasyarakatan, berbagai program bantuan sosial akan diberikan kepada masyarakat kurang mampu, sementara kegiatan gotong royong dan kerja bakti rutin dilakukan untuk menjaga kebersihan desa. Program pemberdayaan perempuan dan peningkatan kesejahteraan keluarga juga menjadi perhatian, sejalan dengan peningkatan pelayanan administrasi desa agar lebih cepat dan efisien.<br />\r\n<br />\r\nDi sektor pendidikan dan kesehatan, desa berupaya menyediakan beasiswa bagi siswa berprestasi dan kurang mampu, serta mengadakan fasilitas penunjang pendidikan seperti perpustakaan desa. Program kesehatan seperti posyandu untuk ibu hamil dan balita akan terus dijalankan guna meningkatkan kualitas kesehatan masyarakat, disertai penyuluhan tentang kebersihan lingkungan.<br />\r\n<br />\r\nDalam bidang pariwisata dan budaya, Desa Margourip mengembangkan potensi wisata alam dan budaya melalui berbagai program, termasuk pelestarian seni dan budaya lokal dengan mengadakan festival serta acara adat. Infrastruktur pendukung wisata, seperti homestay dan pusat informasi wisata, akan terus dikembangkan, didukung dengan promosi yang lebih luas melalui media sosial dan website resmi desa.');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `umkm`
+-- Struktur dari tabel `umkm`
 --
 
 CREATE TABLE `umkm` (
-  `id_umkm` int NOT NULL,
+  `id_umkm` int(11) NOT NULL,
   `nama_umkm` varchar(255) NOT NULL,
   `foto_umkm` varchar(255) NOT NULL,
   `deskripsi` text NOT NULL,
   `link_umkm` varchar(255) NOT NULL,
   `pemilik_umkm` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `umkm`
+-- Dumping data untuk tabel `umkm`
 --
 
 INSERT INTO `umkm` (`id_umkm`, `nama_umkm`, `foto_umkm`, `deskripsi`, `link_umkm`, `pemilik_umkm`) VALUES
-(5, 'Umkm Pertama', '1738892302.png', 'sadsad', 'umkm-pertama', 'putra'),
-(6, 'UMKM Kedua', '1738892998.jpeg', 'adsadsd', 'umkm-kedua', 'danil'),
-(7, 'UMKM Ketiga', '1738943603.png', 'dsadsdsad', 'umkm-ketiga', 'farhan');
+(8, 'Peyek Bu Sri', '1739619400.jpeg', 'UMKM Peyek Bu Sri merupakan usaha rumahan yang telah beroperasi selama lebih dari 17 tahun di Desa Margourip, Kecamatan Ngancar, tepatnya di RT 02/RW 01. Usaha ini dikenal dengan produksi peyeknya yang renyah dan gurih, menggunakan bahan-bahan berkualitas untuk menjaga cita rasa khasnya.<br />\r\n<br />\r\nSetiap harinya, Peyek Bu Sri mampu memproduksi sekitar 10 kg peyek, yang dijual dengan harga Rp50.000 per kilogram. Produk ini banyak diminati oleh masyarakat dan biasanya dipasarkan di sekolah-sekolah, pameran, serta melalui pesanan langsung dari pelanggan.<br />\r\n<br />\r\nDengan pengalaman bertahun-tahun, Peyek Bu Sri terus mempertahankan kualitasnya dan menjadi salah satu produk unggulan UMKM di Desa Margourip.', 'peyek-bu-sri', 'peyek bu sri');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
-  `id` int NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `username`, `password`) VALUES
-(1, 'Riski Putra Alamzah', 'putra', 'putra123'),
-(2, 'Muhammad Farhan', 'farhan', 'farhan123'),
-(5, 'Muhammad Danil Haqewi', 'danil', 'danil123'),
-(6, 'Marshanda Aliza Putra Sudiono', 'danda', 'danda123'),
-(7, 'zakki', 'zakki', 'zakki123'),
-(8, 'Admin', 'admin', 'admin1234567890');
+INSERT INTO `user` (`id`, `nama`, `username`, `password`) VALUES
+(8, 'Admin', 'admin', 'admin1234567890'),
+(9, 'emping', 'emping', 'emping123'),
+(10, 'peyek bu sri', 'peyek bu sri', 'peyek123');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `berita`
+-- Indeks untuk tabel `berita`
 --
 ALTER TABLE `berita`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `galeri`
+-- Indeks untuk tabel `galeri`
 --
 ALTER TABLE `galeri`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kontak`
+-- Indeks untuk tabel `kontak`
 --
 ALTER TABLE `kontak`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `produk`
---
-ALTER TABLE `produk`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `profil`
---
-ALTER TABLE `profil`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `umkm`
+-- Indeks untuk tabel `umkm`
 --
 ALTER TABLE `umkm`
   ADD PRIMARY KEY (`id_umkm`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `berita`
---
-ALTER TABLE `berita`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `galeri`
---
-ALTER TABLE `galeri`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `kontak`
+-- AUTO_INCREMENT untuk tabel `kontak`
 --
 ALTER TABLE `kontak`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `produk`
---
-ALTER TABLE `produk`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `profil`
---
-ALTER TABLE `profil`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `umkm`
+-- AUTO_INCREMENT untuk tabel `umkm`
 --
 ALTER TABLE `umkm`
-  MODIFY `id_umkm` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_umkm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

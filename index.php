@@ -39,13 +39,13 @@
           <div class="section-title">
             <h2 data-aos="fade-up">Sambutan</h2>
             <p data-aos="fade-up">
-              Muhammad Farhan, Presiden Republik Indonesia 2022 – 2100
+              Riyadi, Kepala Desa Margourip 2024 – 2029
             </p>
           </div>
 
           <div class="row content align-items-center">
             <div class="col-lg-6">
-              <img data-aos="fade-right" src="<?= baseUrl(); ?>assets/img/sambutan.jpg" class="img-fluid img-thumbnail" alt="" />
+              <img data-aos="fade-right" src="<?= baseUrl(); ?>assets/img/sambutan2.jpg" class="img-fluid img-thumbnail" alt="" />
             </div>
             <div class="col-lg-6 pt-4 pt-lg-0">
               <p data-aos="fade-left">

@@ -118,6 +118,7 @@ $dataUmkm = mysqli_query($connect, "SELECT * FROM umkm");
                         <label class="form-label">Nama Produk</label>
                         <p><?= $data['nama'] ?></p>
                     </div>
+                
                     <div class="mb-4">
                         <label class="form-label">Deskripsi</label>
                         <p><?= $data['deskripsi'] ?></p>

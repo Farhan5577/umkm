@@ -12,12 +12,14 @@ if (count($_POST) > 0) {
 
     $nama_umkm = $_POST['nama_umkm'];
     $deskripsi = nl2br($_POST['deskripsi']);
+    $no_tlpn = $_POST['no_tlpn'];
+    $alamat = $_POST['alamat'];
     $link_umkm = $_POST['link_umkm'];
     $pemilik_umkm = $_POST['pemilik_umkm'];
 
     move_uploaded_file($_FILES['image']['tmp_name'], 'uploads/' . $name);
-    $query = mysqli_query($connect, "INSERT INTO umkm (nama_umkm, foto_umkm, deskripsi, link_umkm, pemilik_umkm) 
- VALUES ('$nama_umkm', '$name', '$deskripsi', '$link_umkm', '$pemilik_umkm')");
+    $query = mysqli_query($connect, "INSERT INTO umkm (nama_umkm, foto_umkm, deskripsi, link_umkm, pemilik_umkm, no_tlpn, alamat) 
+ VALUES ('$nama_umkm', '$name', '$deskripsi', '$link_umkm', '$pemilik_umkm','$no_tlpn','$alamat')");
 
     if ($query) {
         echo "<script>alert('Data berhasil ditambah') ; window.location.href='http://localhost/umkm/admin/umkm'</script>";
@@ -85,6 +87,18 @@ $data = mysqli_fetch_assoc(mysqli_query($connect, 'SELECT * FROM umkm'));
 
                         <label for="deskripsi" class="form-label">deskripsi</label>
                         <textarea class="form-control" name="deskripsi" id="deskripsi" rows="10" required></textarea>
+                    </div>
+                    <div class="mb-4">
+
+                        <label for="alamat" class="form-label">Alamat umkm</label>
+                        <input required type="text" name="alamat"
+                            class="form-control" id="alamat">
+                    </div>
+                    <div class="mb-4">
+
+                        <label for="no_tlpn" class="form-label">no telepone umkm</label>
+                        <input required type="text" name="no_tlpn"
+                            class="form-control" id="no_tlpn">
                     </div>
                     <div class="mb-4">
 
